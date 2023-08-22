@@ -1,0 +1,44 @@
+import { TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AppComponent } from './app.component';
+
+describe('AppComponent', () => {
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule
+      ],
+      declarations: [
+        AppComponent
+      ],
+    }).compileComponents();
+  });
+
+  it('should create the app', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app).toBeTruthy();
+  });
+
+  it(`should have as title 'rick-and-morty'`, () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app.title).toEqual('rick-and-morty');
+  });
+
+  it('should render title rick if production env is enabled', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.componentInstance.isProdEnabled = true;
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('h1.title')?.textContent).toEqual('Welcome rick-and-morty');
+  });
+
+  it('should render title rick if production env is not enabled', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.componentInstance.isProdEnabled = false;
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('h1.title')?.textContent).toEqual('Welcome rick');
+  });
+});
